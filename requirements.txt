@@ -13,3 +13,4 @@ python-dotenv
 jupyter
 ipykernel
 vaderSentiment
+accelerate
