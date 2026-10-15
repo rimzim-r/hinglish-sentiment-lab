@@ -72,7 +72,7 @@ if __name__ == "__main__":
         per_device_train_batch_size=16,
         learning_rate=3e-5,
         weight_decay=0.01,
-        warmup_ratio=0.1,
+        warmup_steps=50,
         seed=42,
         save_strategy="no",
         logging_steps=50,

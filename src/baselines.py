@@ -50,5 +50,7 @@ if __name__ == "__main__":
              y, hf_predict(raw, "cardiffnlp/twitter-xlm-roberta-base-sentiment"), results)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(results, indent=2))
+    existing = json.loads(OUT.read_text()) if OUT.exists() else {}
+    existing.update(results)
+    OUT.write_text(json.dumps(existing, indent=2))
     print("\nSaved:", OUT)

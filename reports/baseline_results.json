@@ -1,4 +1,5 @@
 {
   "tfidf_lr": 0.6989,
-  "tfidf_lr_cv": 0.6115
+  "tfidf_lr_cv": 0.6115,
+  "finetuned_distilbert-base-multilingual-cased": 0.6501
 }
