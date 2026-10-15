@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+emoji
+datasets
+transformers
+torch
+pyspark
+google-api-python-client
+python-dotenv
+jupyter
+ipykernel
+vaderSentiment
