@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.metrics import classification_report, f1_score
 
 TEST = "data/processed/test.csv"
+PRED = Path("data/processed/test_predictions.csv")
 OUT = Path("reports/baseline_results.json")
 
 
@@ -43,11 +44,18 @@ if __name__ == "__main__":
     raw = test["comment"].tolist()
     results = {}
 
-    evaluate("vader", y, vader_predict(raw), results)
+    preds = {
+        "vader": vader_predict(raw),
+        "xlmr_twitter": hf_predict(raw, "cardiffnlp/twitter-xlm-roberta-base-sentiment"),
+    }
+    for name, p in preds.items():
+        evaluate(name, y, p, results)
 
-    # Multilingual model trained on tweets; labels are negative/neutral/positive
-    evaluate("xlm-roberta-twitter",
-             y, hf_predict(raw, "cardiffnlp/twitter-xlm-roberta-base-sentiment"), results)
+    # add these predictions to the shared predictions file (same row order as test.csv)
+    shared = pd.read_csv(PRED)
+    for name, p in preds.items():
+        shared[f"pred_{name}"] = p
+    shared.to_csv(PRED, index=False)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     existing = json.loads(OUT.read_text()) if OUT.exists() else {}
