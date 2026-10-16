@@ -1,0 +1,7 @@
+{
+  "rows": 502440,
+  "spark_seconds": 26.9,
+  "spark_comments_per_s": 18702,
+  "pandas_comments_per_s": 5501,
+  "note": "synthetic replication of existing comments; measures pipeline throughput"
+}
