@@ -18,6 +18,9 @@ if __name__ == "__main__":
     bad = df[~df["label"].isin(VALID)]
     print(f"{len(df) - len(bad)} labeled, {len(bad)} unlabeled or invalid (dropped)")
     df = df[df["label"].isin(VALID)].reset_index(drop=True)
+    if len(df) < 60:
+        print(f"Only {len(df)} labeled comments. Label at least 60 (ideally 100+) with: python -m src.label_cli")
+        raise SystemExit
     print(df["label"].value_counts(), "\n")
 
     raw = df["comment"].astype(str).tolist()
