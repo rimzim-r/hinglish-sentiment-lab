@@ -48,3 +48,23 @@ python -m src.tfidf_model && python -m src.baselines && python -m src.compare
 ```
 Needs Python 3; Java 17 for the PySpark step. The YouTube collector needs a `YOUTUBE_API_KEY`
 in a local `.env` file.
+
+@'
+
+## Demo API (FastAPI)
+A small API serves the TF-IDF model.
+
+```
+python -m src.tfidf_model        # trains and saves models/tfidf_lr.joblib (git-ignored)
+uvicorn app.main:app --reload    # then open http://127.0.0.1:8000/docs
+python -m pytest -q              # run the tests
+```
+
+Send `{"texts": ["bahut mast video hai bhai"]}` to `POST /predict` (1 to 100 comments per request),
+or try it interactively at `/docs`. `GET /health` reports whether the model is loaded.
+
+![API docs](reports/figures/api_docs.png)
+
+Demo only: the model was trained on YouTube creator and review comments, was not validated on
+brand-campaign comments, and the probabilities are raw model scores, not calibrated confidence.
+'@ | Add-Content -Encoding utf8 README.md
