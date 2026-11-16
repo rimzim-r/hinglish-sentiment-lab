@@ -41,7 +41,7 @@ transliteration normalisation from the original plan were not implemented.
 More detail (ablation, error analysis, benchmarks, campaign check): [docs/DETAILS.md](docs/DETAILS.md)
 
 ## Run it
-```
+```bash
 pip install -r requirements.txt
 python -m src.data && python -m src.prepare && python -m src.split
 python -m src.tfidf_model && python -m src.baselines && python -m src.compare
@@ -49,36 +49,14 @@ python -m src.tfidf_model && python -m src.baselines && python -m src.compare
 Needs Python 3; Java 17 for the PySpark step. The YouTube collector needs a `YOUTUBE_API_KEY`
 in a local `.env` file.
 
-@'
+## Demo (FastAPI & Streamlit)
+A small FastAPI service and a Streamlit page serve the TF-IDF model. The trained model (about 1.2 MB,
+trained on the 2,861-comment training split only) is included in `models/`, so both run right after cloning.
 
-## Demo API (FastAPI)
-A small API serves the TF-IDF model.
-
-```
-python -m src.tfidf_model        # trains and saves models/tfidf_lr.joblib (git-ignored)
-uvicorn app.main:app --reload    # then open http://127.0.0.1:8000/docs
-python -m pytest -q              # run the tests
-```
-
-Send `{"texts": ["bahut mast video hai bhai"]}` to `POST /predict` (1 to 100 comments per request),
-or try it interactively at `/docs`. `GET /health` reports whether the model is loaded.
-
-![API docs](reports/figures/api_docs.png)
-
-Demo only: the model was trained on YouTube creator and review comments, was not validated on
-brand-campaign comments, and the probabilities are raw model scores, not calibrated confidence.
-'@ | Add-Content -Encoding utf8 README.md
-The trained model (about 1.2 MB, trained on the 2,861-comment training split only) is included in models/, so the API runs right after cloning.
-
-## Demo API (FastAPI)
-A small API serves the TF-IDF model. The trained model (about 1.2 MB, trained on the
-2,861-comment training split only) is included in `models/`, so it runs right after cloning.
-
-```
-pip install -r requirements.txt
-uvicorn app.main:app --reload    # then open http://127.0.0.1:8000/docs
-python -m pytest -q              # run the tests
-python -m src.tfidf_model        # optional: retrain the model
+```bash
+uvicorn app.main:app --reload       # FastAPI interactive docs at http://127.0.0.1:8000/docs
+streamlit run streamlit_app.py      # Streamlit UI at http://localhost:8501
+python -m pytest -q                 # run the tests
 ```
 
 Send `{"texts": ["bahut mast video hai bhai"]}` to `POST /predict` (1 to 100 comments per request),

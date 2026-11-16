@@ -14,3 +14,9 @@ jupyter
 ipykernel
 vaderSentiment
 accelerate
+joblib
+fastapi
+uvicorn
+httpx
+pytest
+streamlit
