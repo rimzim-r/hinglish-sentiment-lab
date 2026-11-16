@@ -68,3 +68,4 @@ or try it interactively at `/docs`. `GET /health` reports whether the model is l
 Demo only: the model was trained on YouTube creator and review comments, was not validated on
 brand-campaign comments, and the probabilities are raw model scores, not calibrated confidence.
 '@ | Add-Content -Encoding utf8 README.md
+The trained model (about 1.2 MB, trained on the 2,861-comment training split only) is included in models/, so the API runs right after cloning.
