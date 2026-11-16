@@ -69,3 +69,22 @@ Demo only: the model was trained on YouTube creator and review comments, was not
 brand-campaign comments, and the probabilities are raw model scores, not calibrated confidence.
 '@ | Add-Content -Encoding utf8 README.md
 The trained model (about 1.2 MB, trained on the 2,861-comment training split only) is included in models/, so the API runs right after cloning.
+
+## Demo API (FastAPI)
+A small API serves the TF-IDF model. The trained model (about 1.2 MB, trained on the
+2,861-comment training split only) is included in `models/`, so it runs right after cloning.
+
+```
+pip install -r requirements.txt
+uvicorn app.main:app --reload    # then open http://127.0.0.1:8000/docs
+python -m pytest -q              # run the tests
+python -m src.tfidf_model        # optional: retrain the model
+```
+
+Send `{"texts": ["bahut mast video hai bhai"]}` to `POST /predict` (1 to 100 comments per request),
+or try it interactively at `/docs`. `GET /health` reports whether the model is loaded.
+
+![API docs](reports/figures/api_docs.png)
+
+Demo only: the model was trained on YouTube creator and review comments, was not validated on
+brand-campaign comments, and the probabilities are raw model scores, not calibrated confidence.

@@ -9,3 +9,5 @@ models/*
 *.parquet
 .DS_Store
 !models/tfidf_lr.joblib
+!models/tfidf_lr.joblib
+!models/tfidf_lr.joblib
